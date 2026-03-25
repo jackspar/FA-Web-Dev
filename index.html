@@ -99,7 +99,7 @@
             line-height: 1;
         }
         #gear-btn:hover { color: #475569; background: #f1f5f9; }
-        #gear-btn.active { color: #2563eb; }
+        #gear-btn.active { color: #4ade80; }
 
         /* Gear dropdown panel */
         #gear-panel {
@@ -250,15 +250,28 @@
 
         /* ── HERO ─────────────────────────────────────────────────────── */
         #hero {
-            background: #c8d6e4;
-            color: #0f172a;
+            background: #0a0f1a;
+            position: relative;
+            overflow: hidden;
             padding: 6rem 6% 5.5rem;
             text-align: center;
-            border-bottom: 1px solid #e2e8f0;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.45;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero-eyebrow {
-            color: #2563eb;
+            color: #4ade80;
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.12em;
@@ -272,12 +285,12 @@
             line-height: 1.12;
             letter-spacing: -0.025em;
             margin-bottom: 1.5rem;
-            color: #0f172a;
+            color: #ffffff;
         }
 
         .hero-sub {
             font-size: 1.125rem;
-            color: #475569;
+            color: #94a3b8;
             max-width: 580px;
             margin: 0 auto;
             line-height: 1.75;
@@ -420,7 +433,7 @@
         .ga4-inner { max-width: 720px; margin: 0 auto; }
 
         .ga4-eyebrow {
-            color: #92400e;
+            color: #1a5c38;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.1em;
@@ -609,8 +622,8 @@
 
         /* ── FOOTER ───────────────────────────────────────────────────── */
         footer {
-            background: #1e293b;
-            color: #94a3b8;
+            background: #0a0f1a;
+            color: #475569;
             padding: 1.75rem 6%;
             display: flex;
             align-items: center;
@@ -621,8 +634,42 @@
         }
 
         .footer-links { display: flex; gap: 1.5rem; }
-        .footer-links a { color: #94a3b8; transition: color 0.15s; }
-        .footer-links a:hover { color: #fff; }
+        .footer-links a { color: #475569; transition: color 0.15s; }
+        .footer-links a:hover { color: #4ade80; }
+
+        /* ── HERO GEAR ────────────────────────────────────────────────── */
+        #hero-gear-btn {
+            position: absolute;
+            bottom: 1.25rem;
+            right: 1.5rem;
+            z-index: 2;
+            background: rgba(10,15,26,0.55);
+            border: 1px solid rgba(74,222,128,0.35);
+            color: #4ade80;
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 0.3rem 0.45rem;
+            border-radius: 4px;
+            transition: background 0.15s, border-color 0.15s;
+            line-height: 1;
+        }
+        #hero-gear-btn:hover { background: rgba(10,15,26,0.8); border-color: #4ade80; }
+        #hero-gear-btn.active { background: rgba(10,15,26,0.9); border-color: #4ade80; }
+
+        #hero-gear-panel {
+            display: none;
+            position: absolute;
+            bottom: 3.5rem;
+            right: 1.5rem;
+            z-index: 3;
+            background: #0f1a2e;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 0.875rem 1.125rem;
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+        }
+        #hero-gear-panel.open { display: block; }
 
         /* ── RESPONSIVE ───────────────────────────────────────────────── */
         @media (max-width: 900px) {
@@ -700,9 +747,39 @@
 
 <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
 <section id="hero">
-    <p class="hero-eyebrow">Ad Fraud Detection &nbsp;·&nbsp; Bot Analytics &nbsp;·&nbsp; Invalid Traffic</p>
-    <h1>Your analytics tool isn't reporting bots.</h1>
-    <p class="hero-sub">"If traffic appears in GA but not in FouAnalytics, that traffic didn't actually occur."</p>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+        <p class="hero-eyebrow">Ad Fraud Detection &nbsp;·&nbsp; Bot Analytics &nbsp;·&nbsp; Invalid Traffic</p>
+        <h1>Your analytics tool isn't reporting bots.</h1>
+        <p class="hero-sub">"If traffic appears in GA but not in FouAnalytics, that traffic didn't actually occur."</p>
+    </div>
+    <!-- Hero rain controls -->
+    <button id="hero-gear-btn" title="Rain controls">⚙</button>
+    <div id="hero-gear-panel">
+        <p class="gear-panel-label">Rain Controls</p>
+        <div class="gear-sliders">
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Opacity</span>
+                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="45" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
+                <span class="gear-slider-val" id="hv-opacity">45</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Speed</span>
+                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="4" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-speed">4</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Font Size</span>
+                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="18" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-fontsize">18</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Ad Bot Freq</span>
+                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="6" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
+                <span class="gear-slider-val" id="hv-freq">6</span>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ── CREDIBILITY STRIP ─────────────────────────────────────────────────── -->
@@ -742,51 +819,21 @@
         <div class="comp-col">
             <div class="comp-col-head">Legacy Verification (DV / IAS)</div>
             <ul class="comp-list">
-                <li>
-                    <strong>Pricing Model</strong>
-                    CPM fee on every impression — including bots (~$0.07/CPM)
-                </li>
-                <li>
-                    <strong>Incentive Structure</strong>
-                    Revenue depends on impression volume; finding all fraud reduces it
-                </li>
-                <li>
-                    <strong>Ownership</strong>
-                    NYSE-listed (DV) or private equity-owned (IAS, Novacap ~$1.9B)
-                </li>
-                <li>
-                    <strong>Detection Method</strong>
-                    JavaScript layer — observable and testable by sophisticated bots
-                </li>
-                <li>
-                    <strong>Trust Basis</strong>
-                    MRC accreditation — verifies process conformity, not detection accuracy
-                </li>
+                <li><strong>Pricing Model</strong>CPM fee on every impression — including bots (~$0.07/CPM)</li>
+                <li><strong>Incentive Structure</strong>Revenue depends on impression volume; finding all fraud reduces it</li>
+                <li><strong>Ownership</strong>NYSE-listed (DV) or private equity-owned (IAS, Novacap ~$1.9B)</li>
+                <li><strong>Detection Method</strong>JavaScript layer — observable and testable by sophisticated bots</li>
+                <li><strong>Trust Basis</strong>MRC accreditation — verifies process conformity, not detection accuracy</li>
             </ul>
         </div>
         <div class="comp-col fa-col">
             <div class="comp-col-head">FouAnalytics</div>
             <ul class="comp-list">
-                <li>
-                    <strong>Pricing Model</strong>
-                    Fixed annual subscription — no per-impression fee, no CPM
-                </li>
-                <li>
-                    <strong>Incentive Structure</strong>
-                    Flat fee regardless of fraud volume; structurally incapable of profiting from fraud
-                </li>
-                <li>
-                    <strong>Ownership</strong>
-                    Self-funded since 2012 — no VCs, no investors, no board, no quarterly earnings
-                </li>
-                <li>
-                    <strong>Detection Method</strong>
-                    Server-side — classification happens where bots cannot observe or reverse-engineer it
-                </li>
-                <li>
-                    <strong>Trust Basis</strong>
-                    630+ published research articles — show, don't tell
-                </li>
+                <li><strong>Pricing Model</strong>Fixed annual subscription — no per-impression fee, no CPM</li>
+                <li><strong>Incentive Structure</strong>Flat fee regardless of fraud volume; structurally incapable of profiting from fraud</li>
+                <li><strong>Ownership</strong>Self-funded since 2012 — no VCs, no investors, no board, no quarterly earnings</li>
+                <li><strong>Detection Method</strong>Server-side — classification happens where bots cannot observe or reverse-engineer it</li>
+                <li><strong>Trust Basis</strong>630+ published research articles — show, don't tell</li>
             </ul>
         </div>
     </div>
@@ -796,9 +843,7 @@
 <section id="ga4-gap">
     <div class="ga4-inner">
         <span class="ga4-eyebrow">The GA4 Detection Gap</span>
-        <p class="ga4-quote">
-            "If traffic appears in <em>GA</em> but not in <em>FouAnalytics</em>, that traffic didn't actually occur."
-        </p>
+        <p class="ga4-quote">"If traffic appears in <em>GA</em> but not in <em>FouAnalytics</em>, that traffic didn't actually occur."</p>
         <p class="ga4-support">Google Analytics and Adobe Analytics don't identify bots visiting your site — they report what the tag saw, including fraudulent sessions. FouAnalytics uses deterministic, server-side classification. Fraudsters can write false data directly into Google Analytics to create phantom traffic. Security mechanisms prevent this in FouAnalytics. GA4 cannot tell you how much of your traffic is real. FouAnalytics can.</p>
     </div>
 </section>
@@ -902,6 +947,133 @@
 
 <!-- ── SCRIPTS ────────────────────────────────────────────────────────────── -->
 
+<!-- Hero rain — auto-starts on page load, runs continuously -->
+<script>
+(function () {
+    var hero   = document.getElementById('hero');
+    var canvas = document.getElementById('hero-canvas');
+    var ctx    = canvas.getContext('2d');
+    var cols   = [];
+    var lingerers = [];
+    var timer  = null;
+    var fs = 18;
+    var fps = 4;
+    var freq = 0.06;
+
+    var symbols = (
+        '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
+        '\u2211\u220f\u222b\u2202\u2207\u2260\u2264\u2265\u00b1\u00d7\u00f7\u2295\u2297\u2208\u2209' +
+        '\u2192\u2190\u2191\u2193\u2197\u2198\u2199\u2196\u21d2\u21d0' +
+        '\u03a3\u03a9\u0394\u039b\u03a0\u03a6\u03a8\u0393\u03b1\u03b2\u03b3\u03b4\u03b5\u03b6' +
+        '$\u20ac\u00a3\u00a5@#&*|\\^~{}'
+    ).split('');
+    var latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+    var adBot = 'ad bot'.split('');
+
+    function randCh() {
+        return Math.random() < 0.80
+            ? symbols[Math.floor(Math.random() * symbols.length)]
+            : latin[Math.floor(Math.random() * latin.length)];
+    }
+
+    function init() {
+        canvas.width  = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        lingerers = [];
+        ctx.fillStyle = '#0a0f1a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        cols = [];
+        var rows = Math.floor(canvas.height / fs);
+        var x = Math.random() * fs;
+        while (x < canvas.width) {
+            cols.push({
+                x: x,
+                y: Math.floor(Math.random() * rows),
+                speed: 0.3 + Math.random() * 0.7,
+                frac: 0,
+                adBotPos: -1
+            });
+            x += 8 + Math.random() * 14;
+        }
+    }
+
+    function tick() {
+        ctx.fillStyle = 'rgba(10,15,26,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = 'normal ' + fs + 'px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#4ade80';
+
+        for (var i = 0; i < cols.length; i++) {
+            var col = cols[i];
+            col.frac += col.speed;
+            if (col.frac < 1) continue;
+            col.frac -= 1;
+
+            var cx = i * fs + fs * 0.5;
+            var cy = col.y * fs;
+            var ch, isAB = false;
+
+            if (col.adBotPos >= 0) {
+                ch = adBot[col.adBotPos]; isAB = true;
+                col.adBotPos++;
+                if (col.adBotPos >= adBot.length) col.adBotPos = -1;
+            } else if (Math.random() < freq) {
+                col.adBotPos = 1; ch = adBot[0]; isAB = true;
+            } else {
+                ch = randCh();
+            }
+
+            if (ch !== ' ' && cy > 0 && cy < canvas.height + fs) {
+                if (isAB) {
+                    var big = Math.round(fs * 1.1);
+                    ctx.font = '300 ' + big + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+                    ctx.fillText(ch, cx, cy);
+                    ctx.font = 'normal ' + fs + 'px monospace';
+                    lingerers.push({ x: cx, y: cy, ch: ch, size: big, life: 30 });
+                } else {
+                    ctx.fillText(ch, cx, cy);
+                }
+            }
+
+            col.y++;
+            if (col.y * fs > canvas.height + fs * 5) {
+                col.y = -(Math.floor(Math.random() * 20) + 5);
+                col.speed = 0.3 + Math.random() * 0.7;
+                col.adBotPos = -1;
+            }
+        }
+
+        for (var j = lingerers.length - 1; j >= 0; j--) {
+            var lg = lingerers[j];
+            ctx.font = '300 ' + lg.size + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+            ctx.fillText(lg.ch, lg.x, lg.y);
+            lg.life--;
+            if (lg.life <= 0) lingerers.splice(j, 1);
+        }
+    }
+
+    function start() {
+        init();
+        if (timer) clearInterval(timer);
+        timer = setInterval(tick, Math.round(1000 / fps));
+    }
+
+    window.addEventListener('resize', start);
+    start();
+
+    window.heroRain = {
+        update: function (cfg) {
+            if (cfg.opacity !== undefined) canvas.style.opacity = parseFloat(cfg.opacity).toFixed(2);
+            if (cfg.fs !== undefined)      { fs = cfg.fs; start(); }
+            if (cfg.fps !== undefined)     { fps = cfg.fps; if (timer) { clearInterval(timer); timer = setInterval(tick, Math.round(1000 / fps)); } }
+            if (cfg.freq !== undefined)    { freq = parseFloat(cfg.freq); }
+        }
+    };
+})();
+</script>
+
 <!-- Gear panel toggle -->
 <script>
 (function () {
@@ -918,6 +1090,27 @@
         if (!gearPanel.contains(e.target) && e.target !== gearBtn) {
             gearPanel.classList.remove('open');
             gearBtn.classList.remove('active');
+        }
+    });
+})();
+</script>
+
+<!-- Hero gear toggle -->
+<script>
+(function () {
+    var btn   = document.getElementById('hero-gear-btn');
+    var panel = document.getElementById('hero-gear-panel');
+
+    btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = panel.classList.toggle('open');
+        btn.classList.toggle('active', isOpen);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!panel.contains(e.target) && e.target !== btn) {
+            panel.classList.remove('open');
+            btn.classList.remove('active');
         }
     });
 })();
@@ -950,7 +1143,6 @@
     var rainCols  = [];
     var lingerers = [];
 
-    // ── character set mirrors c-matrix-bg.js ──
     var symbols = (
         '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
         '\u2211\u220f\u222b\u2202\u2207\u2260\u2264\u2265\u00b1\u00d7\u00f7\u2295\u2297\u2208\u2209' +
@@ -1076,7 +1268,6 @@
         adHeadline.textContent = v.headline;
         adSub.textContent      = v.sub;
 
-        // Reset state — canvas opacity set by readSliders() inside startRain()
         adHeadline.style.opacity    = '0';
         adHeadline.style.transition = 'none';
         adSub.style.opacity         = '0';
@@ -1085,27 +1276,23 @@
         overlay.style.transition    = 'none';
         overlay.style.display       = 'flex';
 
-        startRain(); // reads sliders, inits rain, applies canvas opacity
+        startRain();
 
-        // 3s — headline fades in; rain keeps running
         setTimeout(function () {
             adHeadline.style.transition = 'opacity 0.5s ease';
             adHeadline.style.opacity = '1';
         }, 3000);
 
-        // 6s — sub fades in below headline; headline stays; rain keeps running
         setTimeout(function () {
             adSub.style.transition = 'opacity 0.5s ease';
             adSub.style.opacity = '1';
         }, 6000);
 
-        // 13s — headline and sub fade out together; rain still running
         setTimeout(function () {
             adHeadline.style.transition = 'opacity 0.5s ease';
             adHeadline.style.opacity = '0';
             adSub.style.transition = 'opacity 0.5s ease';
             adSub.style.opacity = '0';
-            // overlay fades out with rain still ticking underneath
             setTimeout(function () {
                 overlay.style.transition = 'opacity 0.8s ease';
                 overlay.style.opacity = '0';
