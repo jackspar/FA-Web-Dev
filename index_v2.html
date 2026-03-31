@@ -101,7 +101,7 @@
             inset: 0;
             width: 100%;
             height: 100%;
-            opacity: 0.45;
+            opacity: 0.29;
         }
 
         /* ── HERO GEAR ────────────────────────────────────────────────── */
@@ -111,7 +111,7 @@
             right: 1.5rem;
             z-index: 2;
             background: rgba(10,15,26,0.55);
-            border: 1px solid rgba(74,222,128,0.35);
+            border: 1px solid rgba(74,222,128,0.08);
             color: #4ade80;
             font-size: 0.95rem;
             cursor: pointer;
@@ -538,23 +538,23 @@
         <div class="gear-sliders">
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Opacity</span>
-                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="45" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
-                <span class="gear-slider-val" id="hv-opacity">45</span>
+                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="29" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
+                <span class="gear-slider-val" id="hv-opacity">29</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Speed</span>
-                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="4" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
-                <span class="gear-slider-val" id="hv-speed">4</span>
+                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="2" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-speed">2</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Font Size</span>
-                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="18" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
-                <span class="gear-slider-val" id="hv-fontsize">18</span>
+                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="20" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-fontsize">20</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Ad Bot Freq</span>
-                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="6" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
-                <span class="gear-slider-val" id="hv-freq">6</span>
+                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="3" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
+                <span class="gear-slider-val" id="hv-freq">3</span>
             </div>
         </div>
     </div>
@@ -703,9 +703,9 @@
     var cols   = [];
     var lingerers = [];
     var timer  = null;
-    var fs = 18;
-    var fps = 4;
-    var freq = 0.06;
+    var fs = 20;
+    var fps = 2;
+    var freq = 0.03;
 
     var symbols = (
         '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
