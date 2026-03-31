@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FouAnalytics — Analytics for Your Ads and Sites</title>
+    <meta name="description" content="Most analytics tools don't report bots. FouAnalytics does — 300+ server-side detection parameters, no CPM fee, no conflict of interest. Free under 10M pageviews." />
+    <meta name="keywords" content="ad fraud detection, bot traffic analytics, invalid traffic, bot detection tool, FouAnalytics, programmatic ad fraud, analytics that report bots, digital advertising fraud, independent ad fraud research, GA4 bot filtering, SIVT, GIVT" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #1e293b;
+            background: #ffffff;
+            line-height: 1.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* ── NAV ──────────────────────────────────────────────────────── */
+        nav {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo img {
+            height: 36px;
+            display: block;
+            padding: 2px 4px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: color 0.15s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.15;
+        }
+        .nav-links a:hover { color: #0f172a; }
+
+        .nav-line1, .nav-line2 { font-size: 0.8rem; font-weight: 600; }
+
+        .nav-ctas {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .btn-nav-ghost {
+            color: #1e293b;
+            border: 2px solid #1e293b;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.825rem;
+            font-weight: 600;
+            transition: all 0.15s;
+        }
+        .btn-nav-ghost:hover { border-color: #0f172a; color: #0f172a; }
+
+        .btn-nav-primary {
+            background: #2563eb;
+            color: #fff;
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
+            font-size: 0.825rem;
+            font-weight: 700;
+            transition: background 0.15s;
+        }
+        .btn-nav-primary:hover { background: #1d4ed8; }
+
+        /* ── HERO ─────────────────────────────────────────────────────── */
+        #hero {
+            background: #0a0f1a;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 6% 5.5rem;
+            text-align: center;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.45;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-eyebrow {
+            color: #4ade80;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: clamp(2.25rem, 5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.12;
+            letter-spacing: -0.025em;
+            margin-bottom: 1.5rem;
+            color: #ffffff;
+        }
+
+        .hero-sub {
+            font-size: 1.125rem;
+            color: #94a3b8;
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.75;
+            font-style: italic;
+        }
+
+        /* ── CREDIBILITY STRIP ────────────────────────────────────────── */
+        #credibility {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 2.25rem 6%;
+        }
+
+        .cred-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem 3.5rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .cred-item { text-align: center; }
+
+        .cred-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            white-space: nowrap;
+        }
+
+        .cred-label {
+            font-size: 0.7rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin-top: 0.2rem;
+        }
+
+        /* ── SHARED SECTION ───────────────────────────────────────────── */
+        .section { padding: 5rem 6%; }
+        .section-inner { max-width: 860px; margin: 0 auto; }
+        .section-inner-wide { max-width: 1100px; margin: 0 auto; }
+
+        .eyebrow {
+            color: #2563eb;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 3vw, 2.125rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            color: #0f172a;
+        }
+
+        .body-text {
+            color: #475569;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        /* ── GA4 GAP ──────────────────────────────────────────────────── */
+        #ga4-gap {
+            background: #c8d6e4;
+            border-top: 1px solid #b0c4d6;
+            border-bottom: 1px solid #b0c4d6;
+            padding: 4.5rem 6%;
+            text-align: center;
+        }
+
+        .ga4-inner { max-width: 720px; margin: 0 auto; }
+
+        .ga4-eyebrow {
+            color: #1a5c38;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
+            display: block;
+        }
+
+        .ga4-quote {
+            font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+            font-weight: 600;
+            color: #1e293b;
+            line-height: 1.4;
+            margin-bottom: 1.5rem;
+        }
+
+        .ga4-quote em {
+            color: #1d4ed8;
+            font-style: normal;
+        }
+
+        .ga4-support {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.75;
+        }
+
+        /* ── HOW IT WORKS ─────────────────────────────────────────────── */
+        #how-it-works { background: #ffffff; }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2.5rem;
+        }
+
+        .step {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2rem 1.75rem;
+        }
+
+        .step-num {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #2563eb;
+            margin-bottom: 0.75rem;
+            font-family: monospace;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.625rem;
+        }
+
+        .step p {
+            font-size: 0.875rem;
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 0.875rem;
+        }
+
+        .signal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            margin-top: 0.5rem;
+        }
+
+        .signal-tag {
+            font-size: 0.68rem;
+            font-family: monospace;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: #1d4ed8;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+        }
+
+        .code-block {
+            background: #0f172a;
+            padding: 0.875rem 1rem;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #4ade80;
+            margin-top: 0.875rem;
+            overflow-x: auto;
+        }
+
+        /* ── ACCESS ───────────────────────────────────────────────────── */
+        #access {
+            background: #f1f5f9;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 5rem 6%;
+        }
+
+        .access-inner {
+            max-width: 820px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .access-tiles {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        .access-tile {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            text-align: left;
+        }
+
+        .access-tile h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 0.625rem;
+        }
+
+        .access-tile p {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-tile-ghost {
+            display: inline-block;
+            color: #1e293b;
+            border: 1px solid #cbd5e1;
+            padding: 0.625rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: all 0.15s;
+        }
+        .btn-tile-ghost:hover { border-color: #94a3b8; }
+
+        .btn-tile-primary {
+            display: inline-block;
+            background: #2563eb;
+            color: #fff;
+            padding: 0.625rem 1.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 700;
+            transition: background 0.15s;
+        }
+        .btn-tile-primary:hover { background: #1d4ed8; }
+
+        /* ── RESEARCH ─────────────────────────────────────────────────── */
+        #research { background: #f8fafc; }
+
+        .articles { list-style: none; margin-top: 1.75rem; }
+
+        .articles li {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.85rem 0;
+        }
+        .articles li:first-child { border-top: 1px solid #e2e8f0; }
+
+        .articles a {
+            color: #2563eb;
+            font-size: 0.95rem;
+            transition: color 0.15s;
+        }
+        .articles a:hover { color: #1d4ed8; text-decoration: underline; }
+
+        /* ── ABOUT ────────────────────────────────────────────────────── */
+        #about { background: #ffffff; }
+
+        /* ── FOOTER ───────────────────────────────────────────────────── */
+        footer {
+            background: #0a0f1a;
+            color: #475569;
+            padding: 1.75rem 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.825rem;
+        }
+
+        .footer-links { display: flex; gap: 1.5rem; }
+        .footer-links a { color: #475569; transition: color 0.15s; }
+        .footer-links a:hover { color: #4ade80; }
+
+        /* ── RESPONSIVE ───────────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            .comp-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .access-tiles { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 720px) {
+            .nav-links { display: none; }
+            footer { flex-direction: column; text-align: center; }
+            .footer-links { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ──────────────────────────────────────────────────────────────── -->
+<nav>
+    <a href="#" class="nav-logo"><img src="fou-homepage.png" alt="FouAnalytics" /></a>
+    <ul class="nav-links">
+        <li><a href="#ga4-gap"><span class="nav-line1">Why</span><span class="nav-line2">FouAnalytics</span></a></li>
+        <li><a href="#how-it-works"><span class="nav-line1">How It</span><span class="nav-line2">Works</span></a></li>
+        <li><a href="#research">Research</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+    <div class="nav-ctas">
+        <a href="https://fouanalytics.com/user/login" class="btn-nav-ghost" target="_blank" rel="noopener">Sign In</a>
+        <a href="https://fouanalytics.com" class="btn-nav-primary" target="_blank" rel="noopener">Self Serve</a>
+    </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────────────────── -->
+<section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+        <h1>Analytics for Your Ads and Sites</h1>
+        <p class="hero-sub">see Fou yourself&#174;</p>
+    </div>
+</section>
+
+<!-- ── CREDIBILITY STRIP ─────────────────────────────────────────────────── -->
+<div id="credibility">
+    <div class="cred-grid">
+        <div class="cred-item">
+            <div class="cred-value">Every Impression Measured</div>
+            <div class="cred-label">No Sampling — Nothing Skipped</div>
+        </div>
+        <div class="cred-item">
+            <div class="cred-value">300+ Detection Parameters</div>
+            <div class="cred-label">Server-Side &nbsp;·&nbsp; No JavaScript</div>
+        </div>
+        <div class="cred-item">
+            <div class="cred-value">No Cookies &nbsp;·&nbsp; No PII</div>
+            <div class="cred-label">GDPR Conformant</div>
+        </div>
+        <div class="cred-item">
+            <div class="cred-value">Since 2011</div>
+            <div class="cred-label">15 Years of Active Development</div>
+        </div>
+        <div class="cred-item">
+            <div class="cred-value">Free</div>
+            <div class="cred-label">Under 10M Pageviews / Month</div>
+        </div>
+    </div>
+</div>
+
+<!-- ── GA4 GAP ────────────────────────────────────────────────────────────── -->
+<section id="ga4-gap">
+    <div class="ga4-inner">
+        <span class="ga4-eyebrow">The GA4 Detection Gap</span>
+        <p class="ga4-quote">"If traffic appears in <em>GA</em> but not in <em>FouAnalytics</em>, that traffic didn't actually occur."</p>
+        <p class="ga4-support">Most analytics platforms are required by internet standards to filter bot traffic — which means you never see it. Bots are removed from view before you can act on them. FouAnalytics runs as a supplementary layer, revealing every bot category your existing tools hide: bad bots (red), declared bots (orange), and search crawlers (yellow).</p>
+    </div>
+</section>
+
+<!-- ── HOW IT WORKS ───────────────────────────────────────────────────────── -->
+<section id="how-it-works" class="section">
+    <div class="section-inner-wide">
+        <span class="eyebrow">How It Works</span>
+        <h2>Deterministic, not probabilistic.</h2>
+        <p class="body-text">Every visit is classified server-side using 300+ parameters. The classification happens where bots can't observe it — there is no feedback loop for an attacker to A/B test against.</p>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">Step 01</div>
+                <h3>Install the Tag</h3>
+                <p>Two lines of code or Google Tag Manager. No cookies. No PII collected or needed. GDPR conformant by design.</p>
+                <div class="code-block">&lt;script src="https://api.fouanalytics.com/tag.js"&gt;&lt;/script&gt;</div>
+            </div>
+            <div class="step">
+                <div class="step-num">Step 02</div>
+                <h3>See the Bots</h3>
+                <p>Every visit is classified using 300+ server-side parameters. If three or more red flags are present, the visit is marked dark red — a bot. Red flags include:</p>
+                <div class="signal-tags">
+                    <span class="signal-tag">datacenter IP</span>
+                    <span class="signal-tag">no GPU detected</span>
+                    <span class="signal-tag">no plugins</span>
+                    <span class="signal-tag">screen res mismatch</span>
+                    <span class="signal-tag">1&times;1 window</span>
+                    <span class="signal-tag">click at (0,0)</span>
+                    <span class="signal-tag">tab invisible</span>
+                    <span class="signal-tag">no mouse move</span>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">Step 03</div>
+                <h3>Follow the Money</h3>
+                <p>UTM parameters are auto-parsed. Trace bot traffic directly back to its paid media source — Facebook, Google, programmatic. Know exactly where your wasted spend is going.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── ACCESS ─────────────────────────────────────────────────────────────── -->
+<section id="access">
+    <div class="access-inner">
+        <h2>Get Access</h2>
+        <p class="body-text">FouAnalytics is free for sites under 10 million pageviews per month. Install the tag and see your bots in minutes.</p>
+        <div class="access-tiles">
+            <div class="access-tile">
+                <h3>Sign In</h3>
+                <p>Existing account? Access your dashboard, audit reports, and bot classification data.</p>
+                <a href="https://fouanalytics.com/user/login" class="btn-tile-ghost" target="_blank" rel="noopener">Sign In &rarr;</a>
+            </div>
+            <div class="access-tile">
+                <h3>Self Serve</h3>
+                <p>New to FouAnalytics? Start for free — no credit card, no sales call. Free under 10M pageviews per month.</p>
+                <a href="https://fouanalytics.com" class="btn-tile-primary" target="_blank" rel="noopener">Get Started &rarr;</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── RESEARCH ───────────────────────────────────────────────────────────── -->
+<section id="research" class="section">
+    <div class="section-inner-wide">
+        <span class="eyebrow">Research</span>
+        <h2>Research &amp; Articles</h2>
+        <p class="body-text">FouAnalytics research spans 1000+ published articles and slide decks on ad fraud, bot traffic, and digital media accountability — more than any legacy verification vendor's entire published library. Selected reading:</p>
+        <ul class="articles">
+            <li><a href="https://www.linkedin.com/pulse/what-fouanalytics-how-does-work-dr-augustine-fou-oglve/" target="_blank" rel="noopener">What is FouAnalytics, How Does It Work?</a></li>
+            <li><a href="https://www.linkedin.com/pulse/fouanalytics-origin-story-fouanalytics-uuime" target="_blank" rel="noopener">FouAnalytics Origin Story</a></li>
+            <li><a href="https://www.linkedin.com/pulse/how-fouanalytics-compares-doubleverify-ias-dr-augustine-fou-igque/" target="_blank" rel="noopener">How FouAnalytics Compares to Legacy Verification Vendors</a></li>
+            <li><a href="https://www.linkedin.com/pulse/you-cant-see-google-analytics-add-fouanalytics-fou-yourself-fou-9s4ue/" target="_blank" rel="noopener">You Can't See This in Google Analytics — Add FouAnalytics to See Fou Yourself</a></li>
+            <li><a href="https://www.linkedin.com/pulse/my-qa-ad-fraud-skeptical-cmo-fou-independent-ad-fraud-researcher" target="_blank" rel="noopener">Q&amp;A with a Skeptical CMO</a></li>
+            <li><a href="https://www.linkedin.com/pulse/common-sense-human-detection-fouanalytics-popular-us-fou-9nu6c/" target="_blank" rel="noopener">Common Sense Human Detection</a></li>
+            <li><a href="https://www.linkedin.com/pulse/common-sense-bot-detection-only-you-have-right-fouanalytics-fou-xntie/" target="_blank" rel="noopener">Common Sense Bot Detection</a></li>
+            <li><a href="https://www.linkedin.com/in/augustinefou/recent-activity/newsletter/" target="_blank" rel="noopener">1000+ Articles on Ad Fraud &amp; Digital Media Accountability — FouAnalytics Newsletter</a></li>
+        </ul>
+    </div>
+</section>
+
+<!-- ── ABOUT ──────────────────────────────────────────────────────────────── -->
+<section id="about" class="section">
+    <div class="section-inner-wide">
+        <span class="eyebrow">About</span>
+        <h2>About FouAnalytics</h2>
+        <p class="body-text">FouAnalytics was built to solve a problem the industry wouldn't. In 2012, founder Dr. Augustine Fou — then at Omnicom — discovered click-through rates greater than 100% in pharmaceutical client campaigns. Fraud hidden by averages, driven by fake sites designed to mimic legitimate publishers. Advertisers assumed their campaigns were performing well. The platforms, adtech vendors, and agencies let them believe it, because it meant they'd keep increasing spend. Existing analytics tools couldn't explain what he was seeing — so he built his own tag.</p>
+        <p class="body-text">The platform installs in two lines of code. No cookies. No PII. GDPR conformant. Every visit is classified using 300+ browser and server-side parameters: blue (human), red (bad bot), orange (declared bot), yellow (search crawler). Classification is deterministic — not probabilistic. It happens server-side, so it cannot be observed by an attacker. There is no feedback loop for bots to A/B test against. UTM parameters are auto-parsed so bot traffic traces directly back to its paid media source.</p>
+        <p class="body-text">FouAnalytics has been self-funded since 2012. No VCs. No investors. No board. No quarterly earnings to manage. No financial pressure to soften findings, protect relationships, or hide inconvenient numbers. The platform exists to show what other tools obscure — not to protect the interests of the parties causing the fraud.</p>
+        <p class="body-text">Dr. Fou holds a PhD from MIT and has published 1000+ articles and slide decks on ad fraud and digital media accountability. FouAnalytics works with advertisers and publishers who actually want to know the truth — and who have the courage to do something when they find it.</p>
+    </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────────────────── -->
+<footer>
+    <span>&copy; 2026 Fou Analytics. All rights reserved.</span>
+    <div class="footer-links">
+        <a href="https://www.linkedin.com/in/augustinefou/" target="_blank" rel="noopener">FouAnalytics on LinkedIn</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </div>
+</footer>
+
+<!-- ── SCRIPTS ────────────────────────────────────────────────────────────── -->
+
+<!-- Hero rain — auto-starts on page load, runs continuously -->
+<script>
+(function () {
+    var hero   = document.getElementById('hero');
+    var canvas = document.getElementById('hero-canvas');
+    var ctx    = canvas.getContext('2d');
+    var cols   = [];
+    var lingerers = [];
+    var timer  = null;
+    var fs = 18;
+    var fps = 4;
+    var freq = 0.06;
+
+    var symbols = (
+        '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
+        '\u2211\u220f\u222b\u2202\u2207\u2260\u2264\u2265\u00b1\u00d7\u00f7\u2295\u2297\u2208\u2209' +
+        '\u2192\u2190\u2191\u2193\u2197\u2198\u2199\u2196\u21d2\u21d0' +
+        '\u03a3\u03a9\u0394\u039b\u03a0\u03a6\u03a8\u0393\u03b1\u03b2\u03b3\u03b4\u03b5\u03b6' +
+        '$\u20ac\u00a3\u00a5@#&*|\\^~{}'
+    ).split('');
+    var latin = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
+    var adBot = 'ad bot'.split('');
+
+    function randCh() {
+        return Math.random() < 0.80
+            ? symbols[Math.floor(Math.random() * symbols.length)]
+            : latin[Math.floor(Math.random() * latin.length)];
+    }
+
+    function init() {
+        canvas.width  = hero.offsetWidth;
+        canvas.height = hero.offsetHeight;
+        lingerers = [];
+        ctx.fillStyle = '#0a0f1a';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        cols = [];
+        var rows = Math.floor(canvas.height / fs);
+        var x = Math.random() * fs;
+        while (x < canvas.width) {
+            cols.push({
+                x: x,
+                y: Math.floor(Math.random() * rows),
+                speed: 0.3 + Math.random() * 0.7,
+                frac: 0,
+                adBotPos: -1
+            });
+            x += 8 + Math.random() * 14;
+        }
+    }
+
+    function tick() {
+        ctx.fillStyle = 'rgba(10,15,26,0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = 'normal ' + fs + 'px monospace';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#4ade80';
+
+        for (var i = 0; i < cols.length; i++) {
+            var col = cols[i];
+            col.frac += col.speed;
+            if (col.frac < 1) continue;
+            col.frac -= 1;
+
+            var cx = i * fs + fs * 0.5;
+            var cy = col.y * fs;
+            var ch, isAB = false;
+
+            if (col.adBotPos >= 0) {
+                ch = adBot[col.adBotPos]; isAB = true;
+                col.adBotPos++;
+                if (col.adBotPos >= adBot.length) col.adBotPos = -1;
+            } else if (Math.random() < freq) {
+                col.adBotPos = 1; ch = adBot[0]; isAB = true;
+            } else {
+                ch = randCh();
+            }
+
+            if (ch !== ' ' && cy > 0 && cy < canvas.height + fs) {
+                if (isAB) {
+                    var big = Math.round(fs * 1.1);
+                    ctx.font = '300 ' + big + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+                    ctx.fillText(ch, cx, cy);
+                    ctx.font = 'normal ' + fs + 'px monospace';
+                    lingerers.push({ x: cx, y: cy, ch: ch, size: big, life: 30 });
+                } else {
+                    ctx.fillText(ch, cx, cy);
+                }
+            }
+
+            col.y++;
+            if (col.y * fs > canvas.height + fs * 5) {
+                col.y = -(Math.floor(Math.random() * 20) + 5);
+                col.speed = 0.3 + Math.random() * 0.7;
+                col.adBotPos = -1;
+            }
+        }
+
+        for (var j = lingerers.length - 1; j >= 0; j--) {
+            var lg = lingerers[j];
+            ctx.font = '300 ' + lg.size + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
+            ctx.fillText(lg.ch, lg.x, lg.y);
+            lg.life--;
+            if (lg.life <= 0) lingerers.splice(j, 1);
+        }
+    }
+
+    function start() {
+        init();
+        if (timer) clearInterval(timer);
+        timer = setInterval(tick, Math.round(1000 / fps));
+    }
+
+    window.addEventListener('resize', start);
+    start();
+
+})();
+</script>
+
+
+
+</body>
+</html>
