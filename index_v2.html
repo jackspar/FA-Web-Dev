@@ -104,6 +104,84 @@
             opacity: 0.45;
         }
 
+        /* ── HERO GEAR ────────────────────────────────────────────────── */
+        #hero-gear-btn {
+            position: absolute;
+            bottom: 1.25rem;
+            right: 1.5rem;
+            z-index: 2;
+            background: rgba(10,15,26,0.55);
+            border: 1px solid rgba(74,222,128,0.35);
+            color: #4ade80;
+            font-size: 0.95rem;
+            cursor: pointer;
+            padding: 0.3rem 0.45rem;
+            border-radius: 4px;
+            transition: background 0.15s, border-color 0.15s;
+            line-height: 1;
+        }
+        #hero-gear-btn:hover { background: rgba(10,15,26,0.8); border-color: #4ade80; }
+        #hero-gear-btn.active { background: rgba(10,15,26,0.9); border-color: #4ade80; }
+
+        #hero-gear-panel {
+            display: none;
+            position: absolute;
+            bottom: 3.5rem;
+            right: 1.5rem;
+            z-index: 3;
+            background: #0f1a2e;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 0.875rem 1.125rem;
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+        }
+        #hero-gear-panel.open { display: block; }
+
+        .gear-panel-label {
+            font-size: 0.65rem;
+            font-family: monospace;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 0.875rem;
+        }
+
+        .gear-sliders {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .gear-slider-row {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gear-slider-name {
+            font-size: 0.65rem;
+            font-family: monospace;
+            color: #94a3b8;
+            width: 72px;
+            flex-shrink: 0;
+        }
+
+        .gear-slider-row input[type="range"] {
+            flex: 1;
+            accent-color: #4ade80;
+            height: 3px;
+            cursor: pointer;
+        }
+
+        .gear-slider-val {
+            font-size: 0.65rem;
+            font-family: monospace;
+            color: #4ade80;
+            width: 22px;
+            text-align: right;
+        }
+
         .hero-content {
             position: relative;
             z-index: 1;
@@ -149,7 +227,7 @@
             justify-content: center;
             gap: 2rem 3.5rem;
             max-width: 1100px;
-            margin: 1.25rem auto 0;
+            margin: 0 auto;
         }
 
         .cred-item { text-align: center; }
@@ -171,8 +249,8 @@
 
         /* ── SHARED SECTION ───────────────────────────────────────────── */
         .section { padding: 5rem 6%; }
-        .section-inner { max-width: 860px; margin: 1.25rem auto 0; }
-        .section-inner-wide { max-width: 1100px; margin: 1.25rem auto 0; }
+        .section-inner { max-width: 860px; margin: 0 auto; }
+        .section-inner-wide { max-width: 1100px; margin: 0 auto; }
 
         .eyebrow {
             color: #2563eb;
@@ -209,7 +287,7 @@
             text-align: center;
         }
 
-        .ga4-inner { max-width: 720px; margin: 1.25rem auto 0; }
+        .ga4-inner { max-width: 720px; margin: 0 auto; }
 
         .ga4-eyebrow {
             color: #1a5c38;
@@ -321,7 +399,7 @@
 
         .access-inner {
             max-width: 820px;
-            margin: 1.25rem auto 0;
+            margin: 0 auto;
             text-align: center;
         }
 
@@ -453,6 +531,32 @@
     <div class="hero-content">
         <h1>Analytics for your ads and sites</h1>
         <p class="hero-sub">see Fou yourself&#174;</p>
+    </div>
+    <button id="hero-gear-btn" title="Rain controls">⚙</button>
+    <div id="hero-gear-panel">
+        <p class="gear-panel-label">Rain Controls</p>
+        <div class="gear-sliders">
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Opacity</span>
+                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="45" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
+                <span class="gear-slider-val" id="hv-opacity">45</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Speed</span>
+                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="4" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-speed">4</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Font Size</span>
+                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="18" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-fontsize">18</span>
+            </div>
+            <div class="gear-slider-row">
+                <span class="gear-slider-name">Ad Bot Freq</span>
+                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="6" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
+                <span class="gear-slider-val" id="hv-freq">6</span>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -706,6 +810,35 @@
     window.addEventListener('resize', start);
     start();
 
+    window.heroRain = {
+        update: function (cfg) {
+            if (cfg.opacity !== undefined) canvas.style.opacity = parseFloat(cfg.opacity).toFixed(2);
+            if (cfg.fs !== undefined)      { fs = cfg.fs; start(); }
+            if (cfg.fps !== undefined)     { fps = cfg.fps; if (timer) { clearInterval(timer); timer = setInterval(tick, Math.round(1000 / fps)); } }
+            if (cfg.freq !== undefined)    { freq = parseFloat(cfg.freq); }
+        }
+    };
+})();
+</script>
+
+<!-- Hero gear toggle -->
+<script>
+(function () {
+    var btn   = document.getElementById('hero-gear-btn');
+    var panel = document.getElementById('hero-gear-panel');
+
+    btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        var isOpen = panel.classList.toggle('open');
+        btn.classList.toggle('active', isOpen);
+    });
+
+    document.addEventListener('click', function (e) {
+        if (!panel.contains(e.target) && e.target !== btn) {
+            panel.classList.remove('open');
+            btn.classList.remove('active');
+        }
+    });
 })();
 </script>
 
