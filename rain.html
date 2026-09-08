@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FouAnalytics — Your Analytics Tool Isn't Reporting Bots</title>
-    <meta name="description" content="Most analytics tools don't report bots. FouAnalytics does — 300+ server-side detection parameters, no CPM fee, no conflict of interest. Free under 10M pageviews." />
-    <meta name="keywords" content="ad fraud detection, bot traffic analytics, invalid traffic, bot detection tool, FouAnalytics, programmatic ad fraud, analytics that report bots, digital advertising fraud, independent ad fraud research, GA4 bot filtering, SIVT, GIVT" />
+    <title>FouAnalytics — Digital Media Governance &amp; Independent Measurement</title>
+    <meta name="description" content="FouAnalytics measures every impression directly — not calculated from platform-supplied data. The independent standard of measurement, and billing, for digital advertising." />
+    <meta name="keywords" content="digital media governance, standard of measurement, measurement-first billing, impression-level data, independent ad verification, ad fraud detection, bot traffic analytics, invalid traffic, FouAnalytics, programmatic ad fraud, GA4 bot filtering, SIVT, GIVT" />
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -48,6 +48,7 @@
         .nav-links a {
             color: #64748b;
             font-size: 0.875rem;
+            font-weight: 600;
             transition: color 0.15s;
             display: flex;
             flex-direction: column;
@@ -86,36 +87,56 @@
         }
         .btn-nav-primary:hover { background: #1d4ed8; }
 
-        /* Gear button */
-        #gear-btn {
-            background: transparent;
-            border: none;
-            color: #94a3b8;
-            font-size: 1.1rem;
+        /* ── HERO ─────────────────────────────────────────────────────── */
+        #hero {
+            background: #0a0f1a;
+            position: relative;
+            overflow: hidden;
+            padding: 10rem 6% 9rem;
+            text-align: center;
+        }
+
+        #hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.20;
+        }
+
+        /* ── HERO GEAR ────────────────────────────────────────────────── */
+        #hero-gear-btn {
+            position: absolute;
+            bottom: 1.25rem;
+            right: 1.5rem;
+            z-index: 2;
+            background: rgba(10,15,26,0.55);
+            border: 1px solid rgba(74,222,128,0.08);
+            color: #4ade80;
+            font-size: 0.95rem;
             cursor: pointer;
-            padding: 0.3rem 0.4rem;
+            padding: 0.3rem 0.45rem;
             border-radius: 4px;
-            transition: color 0.15s, background 0.15s;
+            transition: background 0.15s, border-color 0.15s;
             line-height: 1;
         }
-        #gear-btn:hover { color: #475569; background: #f1f5f9; }
-        #gear-btn.active { color: #4ade80; }
+        #hero-gear-btn:hover { background: rgba(10,15,26,0.8); border-color: #4ade80; }
+        #hero-gear-btn.active { background: rgba(10,15,26,0.9); border-color: #4ade80; }
 
-        /* Gear dropdown panel */
-        #gear-panel {
+        #hero-gear-panel {
             display: none;
-            position: fixed;
-            top: 64px;
-            right: 6%;
-            background: #1e293b;
+            position: absolute;
+            bottom: 3.5rem;
+            right: 1.5rem;
+            z-index: 3;
+            background: #0f1a2e;
             border: 1px solid #334155;
             border-radius: 8px;
-            padding: 1rem 1.25rem;
-            z-index: 200;
-            min-width: 240px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+            padding: 0.875rem 1.125rem;
+            min-width: 220px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
         }
-        #gear-panel.open { display: block; }
+        #hero-gear-panel.open { display: block; }
 
         .gear-panel-label {
             font-size: 0.65rem;
@@ -130,9 +151,6 @@
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-            margin-bottom: 0.875rem;
-            padding-bottom: 0.875rem;
-            border-bottom: 1px solid #334155;
         }
 
         .gear-slider-row {
@@ -164,107 +182,6 @@
             text-align: right;
         }
 
-        .gear-radio {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 0.875rem;
-        }
-
-        .gear-radio label {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.825rem;
-            color: #cbd5e1;
-            cursor: pointer;
-            font-family: monospace;
-        }
-        .gear-radio input[type="radio"] { accent-color: #4ade80; cursor: pointer; }
-
-        #play-ad-btn {
-            width: 100%;
-            background: #4ade80;
-            color: #0a0f1a;
-            border: none;
-            padding: 0.6rem 1rem;
-            border-radius: 4px;
-            font-size: 0.825rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: monospace;
-            letter-spacing: 0.04em;
-            transition: opacity 0.15s;
-        }
-        #play-ad-btn:hover { opacity: 0.85; }
-
-        /* ── AD OVERLAY ───────────────────────────────────────────────── */
-        #ad-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #0a0f1a;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        #ad-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        #ad-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            padding: 4rem 8%;
-            max-width: 860px;
-            width: 100%;
-        }
-
-        #ad-headline {
-            font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 700;
-            color: #ffffff;
-            line-height: 1.15;
-            letter-spacing: -0.02em;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        #ad-sub {
-            font-size: clamp(1rem, 2vw, 1.25rem);
-            color: #94a3b8;
-            line-height: 1.7;
-            margin-top: 1.5rem;
-            max-width: 640px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* ── HERO ─────────────────────────────────────────────────────── */
-        #hero {
-            background: #0a0f1a;
-            position: relative;
-            overflow: hidden;
-            padding: 6rem 6% 5.5rem;
-            text-align: center;
-        }
-
-        #hero-canvas {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.45;
-        }
-
         .hero-content {
             position: relative;
             z-index: 1;
@@ -289,10 +206,10 @@
         }
 
         .hero-sub {
-            font-size: 1.125rem;
+            font-size: 1.45rem;
             color: #94a3b8;
             max-width: 580px;
-            margin: 0 auto;
+            margin: 1.25rem auto 0;
             line-height: 1.75;
             font-style: italic;
         }
@@ -361,79 +278,19 @@
             margin-bottom: 1rem;
         }
 
-        /* ── COMPARISON ───────────────────────────────────────────────── */
-        #comparison {
-            background: #f8fafc;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 5rem 6%;
-        }
-
-        .comparison-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .comp-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .comp-col {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 2rem;
-        }
-
-        .comp-col.fa-col {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 1px #2563eb;
-        }
-
-        .comp-col-head {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .comp-col.fa-col .comp-col-head { color: #2563eb; border-color: #bfdbfe; }
-
-        .comp-list { list-style: none; }
-
-        .comp-list li {
-            padding: 0.75rem 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.9rem;
-            color: #475569;
-        }
-        .comp-list li:last-child { border-bottom: none; }
-
-        .comp-list li strong { color: #0f172a; display: block; font-size: 0.8rem; margin-bottom: 0.15rem; }
-
-        .comp-col.fa-col .comp-list li { color: #1e293b; }
-        .comp-col.fa-col .comp-list li strong { color: #1d4ed8; }
-
         /* ── GA4 GAP ──────────────────────────────────────────────────── */
         #ga4-gap {
             background: #c8d6e4;
             border-top: 1px solid #b0c4d6;
             border-bottom: 1px solid #b0c4d6;
-            padding: 4.5rem 6%;
+            padding: 2rem 6%;
             text-align: center;
         }
 
         .ga4-inner { max-width: 720px; margin: 0 auto; }
 
         .ga4-eyebrow {
-            color: #1a5c38;
+            color: #2563eb;
             font-size: 0.75rem;
             font-weight: 700;
             letter-spacing: 0.1em;
@@ -637,40 +494,6 @@
         .footer-links a { color: #475569; transition: color 0.15s; }
         .footer-links a:hover { color: #4ade80; }
 
-        /* ── HERO GEAR ────────────────────────────────────────────────── */
-        #hero-gear-btn {
-            position: absolute;
-            bottom: 1.25rem;
-            right: 1.5rem;
-            z-index: 2;
-            background: rgba(10,15,26,0.55);
-            border: 1px solid rgba(74,222,128,0.35);
-            color: #4ade80;
-            font-size: 0.95rem;
-            cursor: pointer;
-            padding: 0.3rem 0.45rem;
-            border-radius: 4px;
-            transition: background 0.15s, border-color 0.15s;
-            line-height: 1;
-        }
-        #hero-gear-btn:hover { background: rgba(10,15,26,0.8); border-color: #4ade80; }
-        #hero-gear-btn.active { background: rgba(10,15,26,0.9); border-color: #4ade80; }
-
-        #hero-gear-panel {
-            display: none;
-            position: absolute;
-            bottom: 3.5rem;
-            right: 1.5rem;
-            z-index: 3;
-            background: #0f1a2e;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            padding: 0.875rem 1.125rem;
-            min-width: 220px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.45);
-        }
-        #hero-gear-panel.open { display: block; }
-
         /* ── RESPONSIVE ───────────────────────────────────────────────── */
         @media (max-width: 900px) {
             .comp-grid { grid-template-columns: 1fr; }
@@ -682,26 +505,21 @@
             .nav-links { display: none; }
             footer { flex-direction: column; text-align: center; }
             .footer-links { justify-content: center; }
-            #gear-panel { right: 4%; }
         }
     </style>
 </head>
 <body>
 
-<!-- ── AD OVERLAY (off by default) ─────────────────────────────────────── -->
-<div id="ad-overlay">
-    <canvas id="ad-canvas"></canvas>
-    <div id="ad-content">
-        <div id="ad-headline"></div>
-        <div id="ad-sub"></div>
-    </div>
+<!-- ── PRELIMINARY UPDATE BANNER — remove before final handoff ─────────────── -->
+<div style="background:#fef3c7;color:#78350f;text-align:center;padding:0.6rem 6%;font-size:0.85rem;font-weight:600;border-bottom:1px solid #fcd34d;">
+    Preliminary Update — 2026-09-08 — for client review only, not final
 </div>
 
 <!-- ── NAV ──────────────────────────────────────────────────────────────── -->
 <nav>
     <a href="#" class="nav-logo"><img src="fou-homepage.png" alt="FouAnalytics" /></a>
     <ul class="nav-links">
-        <li><a href="#comparison"><span class="nav-line1">Why</span><span class="nav-line2">FouAnalytics</span></a></li>
+        <li><a href="#governance"><span class="nav-line1">Why</span><span class="nav-line2">FouAnalytics</span></a></li>
         <li><a href="#how-it-works"><span class="nav-line1">How It</span><span class="nav-line2">Works</span></a></li>
         <li><a href="#research">Research</a></li>
         <li><a href="#about">About</a></li>
@@ -709,74 +527,40 @@
     <div class="nav-ctas">
         <a href="https://fouanalytics.com/user/login" class="btn-nav-ghost" target="_blank" rel="noopener">Sign In</a>
         <a href="https://fouanalytics.com" class="btn-nav-primary" target="_blank" rel="noopener">Self Serve</a>
-        <button id="gear-btn" title="Ad controls">⚙</button>
     </div>
 </nav>
-
-<!-- ── GEAR PANEL ───────────────────────────────────────────────────────── -->
-<div id="gear-panel">
-    <p class="gear-panel-label">Web Ad Preview</p>
-    <div class="gear-sliders">
-        <div class="gear-slider-row">
-            <span class="gear-slider-name">Opacity</span>
-            <input type="range" id="sl-opacity" min="5" max="60" step="1" value="25" oninput="document.getElementById('v-opacity').textContent=this.value" />
-            <span class="gear-slider-val" id="v-opacity">25</span>
-        </div>
-        <div class="gear-slider-row">
-            <span class="gear-slider-name">Ad Bot Freq</span>
-            <input type="range" id="sl-freq" min="1" max="20" step="1" value="3" oninput="document.getElementById('v-freq').textContent=this.value" />
-            <span class="gear-slider-val" id="v-freq">3</span>
-        </div>
-        <div class="gear-slider-row">
-            <span class="gear-slider-name">Speed</span>
-            <input type="range" id="sl-speed" min="1" max="10" step="1" value="3" oninput="document.getElementById('v-speed').textContent=this.value" />
-            <span class="gear-slider-val" id="v-speed">3</span>
-        </div>
-        <div class="gear-slider-row">
-            <span class="gear-slider-name">Font Size</span>
-            <input type="range" id="sl-fontsize" min="10" max="32" step="1" value="20" oninput="document.getElementById('v-fontsize').textContent=this.value" />
-            <span class="gear-slider-val" id="v-fontsize">20</span>
-        </div>
-    </div>
-    <div class="gear-radio">
-        <label><input type="radio" name="adver" value="1" checked /> Version 1</label>
-        <label><input type="radio" name="adver" value="2" /> Version 2</label>
-    </div>
-    <button id="play-ad-btn">&#9654; Play Ad</button>
-</div>
 
 <!-- ── HERO ─────────────────────────────────────────────────────────────── -->
 <section id="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
-        <p class="hero-eyebrow">Ad Fraud Identification &nbsp;·&nbsp; Bot Analytics &nbsp;·&nbsp; Invalid Traffic Detection</p>
-        <h1>Your analytics tool isn't reporting bots.</h1>
-        <p class="hero-sub">See Fou yourself.</p>
+        <span class="hero-eyebrow">Digital Media Governance</span>
+        <h1>The standard of measurement — and billing — for digital advertising.</h1>
+        <p class="hero-sub">see Fou yourself&#174;</p>
     </div>
-    <!-- Hero rain controls -->
     <button id="hero-gear-btn" title="Rain controls">⚙</button>
     <div id="hero-gear-panel">
         <p class="gear-panel-label">Rain Controls</p>
         <div class="gear-sliders">
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Opacity</span>
-                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="45" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
-                <span class="gear-slider-val" id="hv-opacity">45</span>
+                <input type="range" id="hsl-opacity" min="10" max="80" step="1" value="20" oninput="document.getElementById('hv-opacity').textContent=this.value; window.heroRain&&window.heroRain.update({opacity:this.value/100})" />
+                <span class="gear-slider-val" id="hv-opacity">20</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Speed</span>
-                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="4" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
-                <span class="gear-slider-val" id="hv-speed">4</span>
+                <input type="range" id="hsl-speed" min="1" max="12" step="1" value="2" oninput="document.getElementById('hv-speed').textContent=this.value; window.heroRain&&window.heroRain.update({fps:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-speed">2</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Font Size</span>
-                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="18" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
-                <span class="gear-slider-val" id="hv-fontsize">18</span>
+                <input type="range" id="hsl-fontsize" min="10" max="32" step="1" value="20" oninput="document.getElementById('hv-fontsize').textContent=this.value; window.heroRain&&window.heroRain.update({fs:parseInt(this.value)})" />
+                <span class="gear-slider-val" id="hv-fontsize">20</span>
             </div>
             <div class="gear-slider-row">
                 <span class="gear-slider-name">Ad Bot Freq</span>
-                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="6" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
-                <span class="gear-slider-val" id="hv-freq">6</span>
+                <input type="range" id="hsl-freq" min="1" max="20" step="1" value="3" oninput="document.getElementById('hv-freq').textContent=this.value; window.heroRain&&window.heroRain.update({freq:this.value/100})" />
+                <span class="gear-slider-val" id="hv-freq">3</span>
             </div>
         </div>
     </div>
@@ -798,8 +582,8 @@
             <div class="cred-label">GDPR Conformant</div>
         </div>
         <div class="cred-item">
-            <div class="cred-value">Since 2012</div>
-            <div class="cred-label">14 Years of Active Development</div>
+            <div class="cred-value">Since 2011</div>
+            <div class="cred-label">15 Years of Active Development</div>
         </div>
         <div class="cred-item">
             <div class="cred-value">Free</div>
@@ -808,34 +592,15 @@
     </div>
 </div>
 
-<!-- ── COMPARISON ────────────────────────────────────────────────────────── -->
-<section id="comparison">
-    <div class="comparison-header">
-        <span class="eyebrow">Independent Verification</span>
-        <h2>Detection methodology matters.</h2>
-        <p class="body-text" style="text-align:center; max-width:600px; margin: 0 auto;">Legacy verification vendors measure only a sample of impressions — typically 1 in 100. They issue black-box reports. What they don't measure, they don't count. FouAnalytics measures 100% of impressions and shows you every signal.</p>
-    </div>
-    <div class="comp-grid">
-        <div class="comp-col">
-            <div class="comp-col-head">Legacy Verification Vendors</div>
-            <ul class="comp-list">
-                <li><strong>Coverage</strong>Sample-based — typically 1 in 100 impressions measured</li>
-                <li><strong>Detection Method</strong>Probabilistic — JavaScript layer, observable and testable by sophisticated bots</li>
-                <li><strong>Classification</strong>Binary: invalid (IVT) or valid — unmeasured impressions counted as valid</li>
-                <li><strong>Transparency</strong>Black-box reports — summary percentages with no supporting signals visible</li>
-                <li><strong>Trust Basis</strong>MRC accreditation — verifies process conformity, not detection accuracy</li>
-            </ul>
-        </div>
-        <div class="comp-col fa-col">
-            <div class="comp-col-head">FouAnalytics</div>
-            <ul class="comp-list">
-                <li><strong>Coverage</strong>100% of impressions measured — no sampling</li>
-                <li><strong>Detection Method</strong>Deterministic — 300+ server-side parameters, 3+ red flags = confirmed bot</li>
-                <li><strong>Classification</strong>Granular: human (blue), bad bot (red), declared bot (orange), crawler (yellow)</li>
-                <li><strong>Transparency</strong>All supporting data visible — see every signal that triggered each classification</li>
-                <li><strong>Trust Basis</strong>630+ published research articles — show, don't tell</li>
-            </ul>
-        </div>
+<!-- ── GOVERNANCE ─────────────────────────────────────────────────────────── -->
+<section id="governance" class="section">
+    <div class="section-inner">
+        <span class="eyebrow">Digital Media Governance</span>
+        <h2>Platform-supplied data can't prove independence.</h2>
+        <p class="body-text">Legacy verification vendors take data from the platforms they're supposed to be checking — Google, Meta, the exchanges — and run their own calculations on it. That produces a report. It doesn't produce independence. They never measured the ad themselves.</p>
+        <p class="body-text">FouAnalytics doesn't calculate on someone else's data. It measures every impression directly, with its own tag, before anyone's report gets written. That's impression-level data — not log-level data pulled from a platform after the fact. It's the difference between checking someone's homework and doing the math yourself.</p>
+        <p class="ga4-quote">If it isn't measured by FouAnalytics, you don't pay.</p>
+        <p class="body-text">That's measurement-first billing: FouAnalytics as the standard of measurement, and the standard of billing, for every dollar of digital ad spend. Read the contract language FouAnalytics released publicly, so any advertiser can put it directly into their own agreements. <a href="https://www.linkedin.com/pulse/why-fouanalytics-released-public-msa-boilerplate-language-fou-84qjc/" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;">Why FouAnalytics released its MSA boilerplate publicly &rarr;</a></p>
     </div>
 </section>
 
@@ -853,7 +618,7 @@
     <div class="section-inner-wide">
         <span class="eyebrow">How It Works</span>
         <h2>Deterministic, not probabilistic.</h2>
-        <p class="body-text">Every visit is classified server-side using 300+ parameters. The classification happens where bots can't observe it — there is no feedback loop for an attacker to A/B test against.</p>
+        <p class="body-text">Every visit is measured directly, server-side, using 300+ parameters — not inferred from someone else's log. The classification happens where bots can't observe it, so there's no feedback loop for an attacker to A/B test against.</p>
         <div class="steps-grid">
             <div class="step">
                 <div class="step-num">Step 01</div>
@@ -888,8 +653,7 @@
 <!-- ── ACCESS ─────────────────────────────────────────────────────────────── -->
 <section id="access">
     <div class="access-inner">
-        <span class="eyebrow">Get Access</span>
-        <h2>Start free. No sales call required.</h2>
+        <h2>Get Access</h2>
         <p class="body-text">FouAnalytics is free for sites under 10 million pageviews per month. Install the tag and see your bots in minutes.</p>
         <div class="access-tiles">
             <div class="access-tile">
@@ -911,8 +675,10 @@
     <div class="section-inner-wide">
         <span class="eyebrow">Research</span>
         <h2>Research &amp; Articles</h2>
-        <p class="body-text">FouAnalytics research spans 630+ published articles on ad fraud, bot traffic, and digital media accountability — more than any legacy verification vendor's entire published library. Selected reading:</p>
+        <p class="body-text">FouAnalytics research spans 1000+ published articles and slide decks on ad fraud, bot traffic, and digital media governance — more than any legacy verification vendor's entire published library. Selected reading:</p>
         <ul class="articles">
+            <li><a href="https://www.linkedin.com/pulse/fouanalytics-governance-your-digital-advertising-dr-augustine-fou-qisdc/" target="_blank" rel="noopener">FouAnalytics: Governance for Your Digital Advertising</a></li>
+            <li><a href="https://www.linkedin.com/pulse/why-fouanalytics-released-public-msa-boilerplate-language-fou-84qjc/" target="_blank" rel="noopener">Why FouAnalytics Released Its Public MSA Boilerplate Language</a></li>
             <li><a href="https://www.linkedin.com/pulse/what-fouanalytics-how-does-work-dr-augustine-fou-oglve/" target="_blank" rel="noopener">What is FouAnalytics, How Does It Work?</a></li>
             <li><a href="https://www.linkedin.com/pulse/fouanalytics-origin-story-fouanalytics-uuime" target="_blank" rel="noopener">FouAnalytics Origin Story</a></li>
             <li><a href="https://www.linkedin.com/pulse/how-fouanalytics-compares-doubleverify-ias-dr-augustine-fou-igque/" target="_blank" rel="noopener">How FouAnalytics Compares to Legacy Verification Vendors</a></li>
@@ -920,7 +686,7 @@
             <li><a href="https://www.linkedin.com/pulse/my-qa-ad-fraud-skeptical-cmo-fou-independent-ad-fraud-researcher" target="_blank" rel="noopener">Q&amp;A with a Skeptical CMO</a></li>
             <li><a href="https://www.linkedin.com/pulse/common-sense-human-detection-fouanalytics-popular-us-fou-9nu6c/" target="_blank" rel="noopener">Common Sense Human Detection</a></li>
             <li><a href="https://www.linkedin.com/pulse/common-sense-bot-detection-only-you-have-right-fouanalytics-fou-xntie/" target="_blank" rel="noopener">Common Sense Bot Detection</a></li>
-            <li><a href="https://www.linkedin.com/in/augustinefou/recent-activity/newsletter/" target="_blank" rel="noopener">630+ Articles on Ad Fraud &amp; Digital Media Accountability — FouAnalytics Newsletter</a></li>
+            <li><a href="https://www.linkedin.com/in/augustinefou/recent-activity/newsletter/" target="_blank" rel="noopener">1000+ Articles on Ad Fraud &amp; Digital Media Accountability — FouAnalytics Newsletter</a></li>
         </ul>
     </div>
 </section>
@@ -931,9 +697,10 @@
         <span class="eyebrow">About</span>
         <h2>About FouAnalytics</h2>
         <p class="body-text">FouAnalytics was built to solve a problem the industry wouldn't. In 2012, founder Dr. Augustine Fou — then at Omnicom — discovered click-through rates greater than 100% in pharmaceutical client campaigns. Fraud hidden by averages, driven by fake sites designed to mimic legitimate publishers. Advertisers assumed their campaigns were performing well. The platforms, adtech vendors, and agencies let them believe it, because it meant they'd keep increasing spend. Existing analytics tools couldn't explain what he was seeing — so he built his own tag.</p>
-        <p class="body-text">The platform installs in two lines of code. No cookies. No PII. GDPR conformant. Every visit is classified using 300+ browser and server-side parameters: blue (human), red (bad bot), orange (declared bot), yellow (search crawler). Classification is deterministic — not probabilistic. It happens server-side, so it cannot be observed by an attacker. There is no feedback loop for bots to A/B test against. UTM parameters are auto-parsed so bot traffic traces directly back to its paid media source.</p>
+        <p class="body-text">The platform installs in two lines of code and measures every impression directly — not calculated afterward from someone else's data. No cookies. No PII. GDPR conformant. Every visit is classified using 300+ browser and server-side parameters: blue (human), red (bad bot), orange (declared bot), yellow (search crawler). Classification is deterministic — not probabilistic. It happens server-side, so it cannot be observed by an attacker. There is no feedback loop for bots to A/B test against. UTM parameters are auto-parsed so bot traffic traces directly back to its paid media source.</p>
         <p class="body-text">FouAnalytics has been self-funded since 2012. No VCs. No investors. No board. No quarterly earnings to manage. No financial pressure to soften findings, protect relationships, or hide inconvenient numbers. The platform exists to show what other tools obscure — not to protect the interests of the parties causing the fraud.</p>
-        <p class="body-text">Dr. Fou holds a PhD from MIT and has published 630+ articles on ad fraud and digital media accountability. FouAnalytics works with advertisers and publishers who actually want to know the truth — and who have the courage to do something when they find it.</p>
+        <p class="body-text">That independence starts with how the data is collected, not just who signs the checks. Legacy verification vendors calculate their reports from data the platforms hand them — which makes the platform being measured also the source of the measurement. FouAnalytics never takes that shortcut. It measures every impression itself, directly, before any platform gets to characterize what happened.</p>
+        <p class="body-text">Dr. Fou holds a PhD from MIT and has published 1000+ articles and slide decks on ad fraud and digital media governance. FouAnalytics works with advertisers and publishers who actually want to know the truth — and who have the courage to do something when they find it.</p>
     </div>
 </section>
 
@@ -957,9 +724,9 @@
     var cols   = [];
     var lingerers = [];
     var timer  = null;
-    var fs = 18;
-    var fps = 4;
-    var freq = 0.06;
+    var fs = 20;
+    var fps = 2;
+    var freq = 0.03;
 
     var symbols = (
         '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
@@ -1075,27 +842,6 @@
 })();
 </script>
 
-<!-- Gear panel toggle -->
-<script>
-(function () {
-    var gearBtn   = document.getElementById('gear-btn');
-    var gearPanel = document.getElementById('gear-panel');
-
-    gearBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        var isOpen = gearPanel.classList.toggle('open');
-        gearBtn.classList.toggle('active', isOpen);
-    });
-
-    document.addEventListener('click', function (e) {
-        if (!gearPanel.contains(e.target) && e.target !== gearBtn) {
-            gearPanel.classList.remove('open');
-            gearBtn.classList.remove('active');
-        }
-    });
-})();
-</script>
-
 <!-- Hero gear toggle -->
 <script>
 (function () {
@@ -1117,207 +863,7 @@
 })();
 </script>
 
-<!-- Ad overlay engine -->
-<script>
-(function () {
-    var adVersions = {
-        '1': {
-            headline: 'How much of your ad spend is reaching real people?',
-            sub:      'Standard analytics platforms are required to filter bot traffic \u2014 so you never see it. See Fou yourself.'
-        },
-        '2': {
-            headline: '36 cents of your ad dollar reaches a human.',
-            sub:      'The rest is lost to bots and misaligned vendors. FouAnalytics measures 100% of impressions \u2014 not a sample. See Fou yourself.'
-        }
-    };
 
-    var overlay    = document.getElementById('ad-overlay');
-    var adCanvas   = document.getElementById('ad-canvas');
-    var adHeadline = document.getElementById('ad-headline');
-    var adSub      = document.getElementById('ad-sub');
-    var playBtn    = document.getElementById('play-ad-btn');
-    var gearPanel  = document.getElementById('gear-panel');
-    var gearBtn    = document.getElementById('gear-btn');
-
-    var ctx = adCanvas.getContext('2d');
-    var rainTimer = null;
-    var rainCols  = [];
-    var lingerers = [];
-
-    var symbols = (
-        '\u25a1\u25a0\u25aa\u25ab\u2591\u2592\u2593\u25b2\u25bc\u25c6\u25c7\u25cb\u25cf' +
-        '\u2211\u220f\u222b\u2202\u2207\u2260\u2264\u2265\u00b1\u00d7\u00f7\u2295\u2297\u2208\u2209' +
-        '\u2192\u2190\u2191\u2193\u2197\u2198\u2199\u2196\u21d2\u21d0' +
-        '\u03a3\u03a9\u0394\u039b\u03a0\u03a6\u03a8\u0393\u03b1\u03b2\u03b3\u03b4\u03b5\u03b6' +
-        '$\u20ac\u00a3\u00a5' +
-        '@#&*|\\^~{}'
-    ).split('');
-    var latin  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('');
-    var adBot  = 'ad bot'.split('');
-    var fs     = 20;
-    var fps    = 3;
-    var freq   = 0.03;
-
-    function readSliders() {
-        fs   = parseInt(document.getElementById('sl-fontsize').value, 10);
-        fps  = parseInt(document.getElementById('sl-speed').value, 10);
-        freq = parseInt(document.getElementById('sl-freq').value, 10) / 100;
-        adCanvas.style.opacity = (parseInt(document.getElementById('sl-opacity').value, 10) / 100).toFixed(2);
-    }
-
-    function randCh() {
-        return Math.random() < 0.80
-            ? symbols[Math.floor(Math.random() * symbols.length)]
-            : latin[Math.floor(Math.random() * latin.length)];
-    }
-
-    function initRain() {
-        adCanvas.width  = window.innerWidth;
-        adCanvas.height = window.innerHeight;
-        lingerers = [];
-        ctx.fillStyle = '#0a0f1a';
-        ctx.fillRect(0, 0, adCanvas.width, adCanvas.height);
-
-        rainCols = [];
-        var rows = Math.floor(adCanvas.height / fs);
-        var x = Math.random() * fs;
-        while (x < adCanvas.width) {
-            rainCols.push({
-                x: x, y: Math.floor(Math.random() * rows),
-                speed: 0.3 + Math.random() * 0.7,
-                frac: 0, adBotPos: -1
-            });
-            x += 8 + Math.random() * 14;
-        }
-    }
-
-    function tickRain() {
-        ctx.fillStyle = 'rgba(10,15,26,0.05)';
-        ctx.fillRect(0, 0, adCanvas.width, adCanvas.height);
-        ctx.font = 'normal ' + fs + 'px monospace';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#4ade80';
-
-        for (var i = 0; i < rainCols.length; i++) {
-            var col = rainCols[i];
-            col.frac += col.speed;
-            if (col.frac < 1) continue;
-            col.frac -= 1;
-
-            var cx = i * fs + fs * 0.5;
-            var cy = col.y * fs;
-            var ch, isAB = false;
-
-            if (col.adBotPos >= 0) {
-                ch = adBot[col.adBotPos]; isAB = true;
-                col.adBotPos++;
-                if (col.adBotPos >= adBot.length) col.adBotPos = -1;
-            } else if (Math.random() < freq) {
-                col.adBotPos = 1; ch = adBot[0]; isAB = true;
-            } else {
-                ch = randCh();
-            }
-
-            if (ch !== ' ' && cy > 0 && cy < adCanvas.height + fs) {
-                if (isAB) {
-                    var big = Math.round(fs * 1.1);
-                    ctx.font = '300 ' + big + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
-                    ctx.fillText(ch, cx, cy);
-                    ctx.font = 'normal ' + fs + 'px monospace';
-                    lingerers.push({ x: cx, y: cy, ch: ch, size: big, life: 30 });
-                } else {
-                    ctx.fillText(ch, cx, cy);
-                }
-            }
-
-            col.y++;
-            if (col.y * fs > adCanvas.height + fs * 5) {
-                col.y = -(Math.floor(Math.random() * 20) + 5);
-                col.speed = 0.3 + Math.random() * 0.7;
-                col.adBotPos = -1;
-            }
-        }
-
-        for (var j = lingerers.length - 1; j >= 0; j--) {
-            var lg = lingerers[j];
-            ctx.font = '300 ' + lg.size + 'px -apple-system,"Helvetica Neue",Arial,sans-serif';
-            ctx.fillText(lg.ch, lg.x, lg.y);
-            lg.life--;
-            if (lg.life <= 0) lingerers.splice(j, 1);
-        }
-    }
-
-    function startRain() {
-        readSliders();
-        initRain();
-        if (rainTimer) clearInterval(rainTimer);
-        rainTimer = setInterval(tickRain, Math.round(1000 / fps));
-    }
-
-    function stopRain() {
-        if (rainTimer) { clearInterval(rainTimer); rainTimer = null; }
-    }
-
-    function fadeElTo(el, targetOpacity, dur, cb) {
-        el.style.transition = 'opacity ' + (dur / 1000).toFixed(2) + 's ease';
-        el.style.opacity = String(targetOpacity);
-        if (cb) setTimeout(cb, dur);
-    }
-
-    function playAd(version) {
-        var v = adVersions[version] || adVersions['1'];
-        adHeadline.textContent = v.headline;
-        adSub.textContent      = v.sub;
-
-        adHeadline.style.opacity    = '0';
-        adHeadline.style.transition = 'none';
-        adSub.style.opacity         = '0';
-        adSub.style.transition      = 'none';
-        overlay.style.opacity       = '1';
-        overlay.style.transition    = 'none';
-        overlay.style.display       = 'flex';
-
-        startRain();
-
-        setTimeout(function () {
-            adHeadline.style.transition = 'opacity 0.5s ease';
-            adHeadline.style.opacity = '1';
-        }, 3000);
-
-        setTimeout(function () {
-            adSub.style.transition = 'opacity 0.5s ease';
-            adSub.style.opacity = '1';
-        }, 6000);
-
-        setTimeout(function () {
-            adHeadline.style.transition = 'opacity 0.5s ease';
-            adHeadline.style.opacity = '0';
-            adSub.style.transition = 'opacity 0.5s ease';
-            adSub.style.opacity = '0';
-            setTimeout(function () {
-                overlay.style.transition = 'opacity 0.8s ease';
-                overlay.style.opacity = '0';
-                setTimeout(function () {
-                    overlay.style.display = 'none';
-                    stopRain();
-                }, 800);
-            }, 400);
-        }, 13000);
-    }
-
-    playBtn.addEventListener('click', function () {
-        var selected = document.querySelector('input[name="adver"]:checked');
-        var ver = selected ? selected.value : '1';
-        gearPanel.classList.remove('open');
-        gearBtn.classList.remove('active');
-        playAd(ver);
-    });
-
-    window.addEventListener('resize', function () {
-        if (overlay.style.display !== 'none') initRain();
-    });
-})();
-</script>
 
 </body>
 </html>

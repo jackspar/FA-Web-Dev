@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FouAnalytics — Analytics for your Ads and Sites</title>
-    <meta name="description" content="Most analytics tools don't report bots. FouAnalytics does — 300+ server-side detection parameters, no CPM fee, no conflict of interest. Free under 10M pageviews." />
-    <meta name="keywords" content="ad fraud detection, bot traffic analytics, invalid traffic, bot detection tool, FouAnalytics, programmatic ad fraud, analytics that report bots, digital advertising fraud, independent ad fraud research, GA4 bot filtering, SIVT, GIVT" />
+    <title>FouAnalytics — Digital Media Governance &amp; Independent Measurement</title>
+    <meta name="description" content="FouAnalytics measures every impression directly — not calculated from platform-supplied data. The independent standard of measurement, and billing, for digital advertising." />
+    <meta name="keywords" content="digital media governance, standard of measurement, measurement-first billing, impression-level data, independent ad verification, ad fraud detection, bot traffic analytics, invalid traffic, FouAnalytics, programmatic ad fraud, GA4 bot filtering, SIVT, GIVT" />
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -510,11 +510,16 @@
 </head>
 <body>
 
+<!-- ── PRELIMINARY UPDATE BANNER — remove before final handoff ─────────────── -->
+<div style="background:#fef3c7;color:#78350f;text-align:center;padding:0.6rem 6%;font-size:0.85rem;font-weight:600;border-bottom:1px solid #fcd34d;">
+    Preliminary Update — 2026-09-08 — for client review only, not final
+</div>
+
 <!-- ── NAV ──────────────────────────────────────────────────────────────── -->
 <nav>
     <a href="#" class="nav-logo"><img src="fou-homepage.png" alt="FouAnalytics" /></a>
     <ul class="nav-links">
-        <li><a href="#ga4-gap"><span class="nav-line1">Why</span><span class="nav-line2">FouAnalytics</span></a></li>
+        <li><a href="#governance"><span class="nav-line1">Why</span><span class="nav-line2">FouAnalytics</span></a></li>
         <li><a href="#how-it-works"><span class="nav-line1">How It</span><span class="nav-line2">Works</span></a></li>
         <li><a href="#research">Research</a></li>
         <li><a href="#about">About</a></li>
@@ -529,7 +534,8 @@
 <section id="hero">
     <canvas id="hero-canvas"></canvas>
     <div class="hero-content">
-        <h1>Analytics for your Ads and Sites</h1>
+        <span class="hero-eyebrow">Digital Media Governance</span>
+        <h1>The standard of measurement — and billing — for digital advertising.</h1>
         <p class="hero-sub">see Fou yourself&#174;</p>
     </div>
     <button id="hero-gear-btn" title="Rain controls">⚙</button>
@@ -586,6 +592,18 @@
     </div>
 </div>
 
+<!-- ── GOVERNANCE ─────────────────────────────────────────────────────────── -->
+<section id="governance" class="section">
+    <div class="section-inner">
+        <span class="eyebrow">Digital Media Governance</span>
+        <h2>Platform-supplied data can't prove independence.</h2>
+        <p class="body-text">Legacy verification vendors take data from the platforms they're supposed to be checking — Google, Meta, the exchanges — and run their own calculations on it. That produces a report. It doesn't produce independence. They never measured the ad themselves.</p>
+        <p class="body-text">FouAnalytics doesn't calculate on someone else's data. It measures every impression directly, with its own tag, before anyone's report gets written. That's impression-level data — not log-level data pulled from a platform after the fact. It's the difference between checking someone's homework and doing the math yourself.</p>
+        <p class="ga4-quote">If it isn't measured by FouAnalytics, you don't pay.</p>
+        <p class="body-text">That's measurement-first billing: FouAnalytics as the standard of measurement, and the standard of billing, for every dollar of digital ad spend. Read the contract language FouAnalytics released publicly, so any advertiser can put it directly into their own agreements. <a href="https://www.linkedin.com/pulse/why-fouanalytics-released-public-msa-boilerplate-language-fou-84qjc/" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline;">Why FouAnalytics released its MSA boilerplate publicly &rarr;</a></p>
+    </div>
+</section>
+
 <!-- ── GA4 GAP ────────────────────────────────────────────────────────────── -->
 <section id="ga4-gap">
     <div class="ga4-inner">
@@ -600,7 +618,7 @@
     <div class="section-inner-wide">
         <span class="eyebrow">How It Works</span>
         <h2>Deterministic, not probabilistic.</h2>
-        <p class="body-text">Every visit is classified server-side using 300+ parameters. The classification happens where bots can't observe it — there is no feedback loop for an attacker to A/B test against.</p>
+        <p class="body-text">Every visit is measured directly, server-side, using 300+ parameters — not inferred from someone else's log. The classification happens where bots can't observe it, so there's no feedback loop for an attacker to A/B test against.</p>
         <div class="steps-grid">
             <div class="step">
                 <div class="step-num">Step 01</div>
@@ -657,8 +675,10 @@
     <div class="section-inner-wide">
         <span class="eyebrow">Research</span>
         <h2>Research &amp; Articles</h2>
-        <p class="body-text">FouAnalytics research spans 1000+ published articles and slide decks on ad fraud, bot traffic, and digital media accountability — more than any legacy verification vendor's entire published library. Selected reading:</p>
+        <p class="body-text">FouAnalytics research spans 1000+ published articles and slide decks on ad fraud, bot traffic, and digital media governance — more than any legacy verification vendor's entire published library. Selected reading:</p>
         <ul class="articles">
+            <li><a href="https://www.linkedin.com/pulse/fouanalytics-governance-your-digital-advertising-dr-augustine-fou-qisdc/" target="_blank" rel="noopener">FouAnalytics: Governance for Your Digital Advertising</a></li>
+            <li><a href="https://www.linkedin.com/pulse/why-fouanalytics-released-public-msa-boilerplate-language-fou-84qjc/" target="_blank" rel="noopener">Why FouAnalytics Released Its Public MSA Boilerplate Language</a></li>
             <li><a href="https://www.linkedin.com/pulse/what-fouanalytics-how-does-work-dr-augustine-fou-oglve/" target="_blank" rel="noopener">What is FouAnalytics, How Does It Work?</a></li>
             <li><a href="https://www.linkedin.com/pulse/fouanalytics-origin-story-fouanalytics-uuime" target="_blank" rel="noopener">FouAnalytics Origin Story</a></li>
             <li><a href="https://www.linkedin.com/pulse/how-fouanalytics-compares-doubleverify-ias-dr-augustine-fou-igque/" target="_blank" rel="noopener">How FouAnalytics Compares to Legacy Verification Vendors</a></li>
@@ -677,9 +697,10 @@
         <span class="eyebrow">About</span>
         <h2>About FouAnalytics</h2>
         <p class="body-text">FouAnalytics was built to solve a problem the industry wouldn't. In 2012, founder Dr. Augustine Fou — then at Omnicom — discovered click-through rates greater than 100% in pharmaceutical client campaigns. Fraud hidden by averages, driven by fake sites designed to mimic legitimate publishers. Advertisers assumed their campaigns were performing well. The platforms, adtech vendors, and agencies let them believe it, because it meant they'd keep increasing spend. Existing analytics tools couldn't explain what he was seeing — so he built his own tag.</p>
-        <p class="body-text">The platform installs in two lines of code. No cookies. No PII. GDPR conformant. Every visit is classified using 300+ browser and server-side parameters: blue (human), red (bad bot), orange (declared bot), yellow (search crawler). Classification is deterministic — not probabilistic. It happens server-side, so it cannot be observed by an attacker. There is no feedback loop for bots to A/B test against. UTM parameters are auto-parsed so bot traffic traces directly back to its paid media source.</p>
+        <p class="body-text">The platform installs in two lines of code and measures every impression directly — not calculated afterward from someone else's data. No cookies. No PII. GDPR conformant. Every visit is classified using 300+ browser and server-side parameters: blue (human), red (bad bot), orange (declared bot), yellow (search crawler). Classification is deterministic — not probabilistic. It happens server-side, so it cannot be observed by an attacker. There is no feedback loop for bots to A/B test against. UTM parameters are auto-parsed so bot traffic traces directly back to its paid media source.</p>
         <p class="body-text">FouAnalytics has been self-funded since 2012. No VCs. No investors. No board. No quarterly earnings to manage. No financial pressure to soften findings, protect relationships, or hide inconvenient numbers. The platform exists to show what other tools obscure — not to protect the interests of the parties causing the fraud.</p>
-        <p class="body-text">Dr. Fou holds a PhD from MIT and has published 1000+ articles and slide decks on ad fraud and digital media accountability. FouAnalytics works with advertisers and publishers who actually want to know the truth — and who have the courage to do something when they find it.</p>
+        <p class="body-text">That independence starts with how the data is collected, not just who signs the checks. Legacy verification vendors calculate their reports from data the platforms hand them — which makes the platform being measured also the source of the measurement. FouAnalytics never takes that shortcut. It measures every impression itself, directly, before any platform gets to characterize what happened.</p>
+        <p class="body-text">Dr. Fou holds a PhD from MIT and has published 1000+ articles and slide decks on ad fraud and digital media governance. FouAnalytics works with advertisers and publishers who actually want to know the truth — and who have the courage to do something when they find it.</p>
     </div>
 </section>
 
